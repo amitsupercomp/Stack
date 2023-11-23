@@ -1,0 +1,71 @@
+public class StackReverseWithoutReferenceVariable {
+	public static class Node4 {
+		int data;
+		Node4 next;
+		Node4(int data) {
+			this.data = data;
+			next = null;
+		}
+	}
+	public static class Stack4 {
+		static Node4 head = null;		
+		public static boolean isEmpty() {
+			return head == null;
+		}		
+		public static void push(int data) {
+			Node4 newNode = new Node4(data);
+			if(isEmpty()) {
+				head = newNode;
+				return;
+			}
+			newNode.next = head;
+			head = newNode;
+		}
+		public static int pop() {
+			if(isEmpty())
+				return -999;
+			int top = head.data;
+			head = head.next;
+			return top;
+		}
+		public static int peek() {
+			return head.data;
+		}
+	}
+	public static void main(String[] args) {
+		Stack4.push(100);
+		Stack4.push(200);
+		Stack4.push(300);
+		Stack4.push(400);
+		reverse();
+		while (!Stack4.isEmpty()) {
+			System.out.println(Stack4.peek());
+			Stack4.pop();
+		}
+	}
+	
+	public static void pushAtBottom(int data) {
+		int top = -999;
+		if (Stack4.isEmpty()) {
+			Stack4.push(data);
+			return;
+		}
+		else {
+			top = Stack4.pop();
+			pushAtBottom(data);
+		}
+		Stack4.push(top);
+	}
+	
+	public static void reverse() {
+		int bottom = -999;
+		if (Stack4.isEmpty()) {
+			return;
+		}
+		else {
+			bottom = Stack4.pop();
+			reverse();
+		}
+		pushAtBottom(bottom);
+	}
+}
