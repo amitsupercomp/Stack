@@ -1,0 +1,66 @@
+public class StackReverse {
+	public static class Node3 {
+		int data;
+		Node3 next;
+		Node3(int data) {
+			this.data = data;
+			next = null;
+		}
+	}
+	public static class Stack3 {
+		static Node3 head = null;		
+		public static boolean isEmpty() {
+			return head == null;
+		}		
+		public static void push(int data) {
+			Node3 newNode = new Node3(data);
+			if(isEmpty()) {
+				head = newNode;
+				return;
+			}
+			newNode.next = head;
+			head = newNode;
+		}
+		public static int pop() {
+			if(isEmpty())
+				return -999;
+			int top = head.data;
+			head = head.next;
+			return top;
+		}
+		public static int peek() {
+			return head.data;
+		}
+	}
+	public static void main(String[] args) {
+		Stack3 stack3 = new Stack3();
+		stack3.push(12);
+		stack3.push(13);
+		stack3.push(14);
+		stack3.push(15);
+		
+		reverse(stack3);
+		while(!Stack3.isEmpty()) {
+			System.out.println(Stack3.peek());
+			Stack3.pop();
+		}
+	}
+	
+	public static void pushAtBottom(int data, Stack3 stack) {
+		if(stack.isEmpty()) {
+			stack.push(data);
+			return ;
+		}
+		int top = Stack3.pop();
+		pushAtBottom(data, stack);
+		stack.push(top);
+	}
+	
+	public static void reverse(Stack3 stack3) {
+		if(stack3.isEmpty())
+			return;
+		int bottom = stack3.pop();
+		reverse(stack3);
+		pushAtBottom(bottom, stack3);
+	}
+}
